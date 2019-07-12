@@ -22,6 +22,7 @@ export class Quiz extends React.PureComponent {
       isCorrectAns: false,
       disabled: false,
       redirect: false,
+      isAnsSelected:true,
     }
     this.createInitialState();
     this.handleRadioClicked = this.handleRadioClicked.bind(this);
@@ -31,13 +32,20 @@ export class Quiz extends React.PureComponent {
   handleRadioClicked(e){
     const value = e.target.value;
     this.setState({
-      selectedValue:value
+      selectedValue: value,
+      isAnsSelected: true,
     })
   }
   handleSubmit(){
     let {currentScore} = this.props;
+    if(!this.state.selectedValue){
+      this.setState({
+        isAnsSelected:false,
+      });
+      return -1;
+    }
     if(this.state.selectedValue === this.props.correctAnswer){
-      this.setState({isCorrectAns:true});
+      this.setState({isCorrectAns:true,isAnsSelected:true});
       this.props.setNewScore(++currentScore);
     }
     this.setState({disabled:true});
@@ -79,7 +87,7 @@ export class Quiz extends React.PureComponent {
     }
     return(
       <div>
-        <QuizComponent question={currentQuestion} handleRadioClicked={this.handleRadioClicked} selectedValue={this.state.selectedValue} isCorrectAns={this.state.isCorrectAns} disabled={this.state.disabled} handleSubmit={this.handleSubmit} handleNext={this.handleNext}/>
+        <QuizComponent question={currentQuestion} handleRadioClicked={this.handleRadioClicked} selectedValue={this.state.selectedValue} isCorrectAns={this.state.isCorrectAns} disabled={this.state.disabled} handleSubmit={this.handleSubmit} handleNext={this.handleNext} isAnsSelected={this.state.isAnsSelected}/>
       </div>
     )
   }

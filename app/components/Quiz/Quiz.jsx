@@ -12,7 +12,7 @@ const DisplayMessage = ({msg})=>{
 }
 
 export const Quiz = (props)=>{
-  const {isCorrectAns,disabled} = props;
+  const {isCorrectAns,disabled,isAnsSelected} = props;
   const errorClass = !isCorrectAns && disabled?'error':''
   return(
     <React.Fragment>
@@ -31,6 +31,11 @@ export const Quiz = (props)=>{
       {
         !isCorrectAns &&  disabled && (
           <DisplayMessage msg={"Wrong Answer"}/>
+        )
+      }
+      {
+        !isAnsSelected && (
+          <DisplayMessage msg={"Please Select Any option"}/>
         )
       }
       <div className={"setDisplay"}>
