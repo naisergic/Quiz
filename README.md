@@ -1,4 +1,3 @@
-For Initial Set up boilerplate code is used
 please follow the following step to run this
   1) download the Repo
   2) npm i
